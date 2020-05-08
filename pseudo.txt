@@ -1,0 +1,44 @@
+// Mobile
+
+// Have a search bar to search for ingredients
+
+// Tap on the search bar to bring up the keyboard and type in the ingredient desired
+
+// As you type, a drop down appears to display the ingredients you're searching for
+
+// Tap on the ingredient to select it and then...
+
+    // The search results from typing are hidden
+
+    // If it's the first ingredient, a selected ingredients div appears underneath the search bar to display the ingredients selected
+    
+    // The chosen ingredient gets added to the selected ingredients div
+
+// Tap on the search bar again to search for another ingredient to add
+
+// Repeat the process until all desired ingredients are selected
+
+// Once all desired ingredients are selected, then push a search button underneath the selected ingredients list to then begin the search, which then...
+
+    // The search bar is hidden
+
+    // The selected ingredients are left at the top
+
+
+
+
+// MOBILE OPTION TWO
+
+// Have a search bar to search for ingredients
+
+// Tap on the search bar to bring up the keyboard and type in the ingredient desired
+
+// As you type, a drop down appears to display the ingredients you're searching for
+
+// Tap on the ingredient to select it and then...
+
+    // the ingredient gets added to a list of selected ingredients right beneath the search bar in a button format, with an 'X' to the right to deselect that ingredient if desired
+
+    // beneath the div of selected ingredients, recipes are rendered based on the currently selected ingredients in a one column, scrollable format
+
+// Tap on the search bar again to add another ingredient
