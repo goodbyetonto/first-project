@@ -1,10 +1,15 @@
 
-    // Ingredient List: 
+    // Master Ingredient List: 
     var ingArray = [];
 
+    // User Input Ingredient List: 
+    var selIng = ['chicken', 'garlic'];
 
-    // // Filter by Multi-Ingredient: 
-    // let multiIngList = "https://www.themealdb.com/api/json/v2/9973533/filter.php?i=ingredient1,ingredient2,ingredient3";
+    // Convert selIng to string w/ comma separation
+    var queryAppend = selIng.join();
+
+    // Filter by Multi-Ingredient: 
+    let multiIngList = "https://www.themealdb.com/api/json/v2/9973533/filter.php?i=" + queryAppend;
 
     // // Filter by Main Ingredient: 
     // let https://www.themealdb.com/api/json/v2/9973533/filter.php?i=main_ingredient
@@ -19,6 +24,7 @@
     // https://www.themealdb.com/api/json/v2/9973533/lookup.php?i=52772
 
 
+    // AJAX call for API ingredient list
     function genIngArray() {
         let ingList = "https://www.themealdb.com/api/json/v2/9973533/list.php?i=list";
         $.ajax({ 
@@ -29,8 +35,25 @@
                 var ing = resp.meals[i].strIngredient;
                 ingArray.push(ing);   
             }
-         console.log(ingArray);        
         }); 
     };
 
-console.log(genIngArray()); 
+    // Function for when user selects multiple ingredients
+    function multiIng() {
+        let multiIngList = "https://www.themealdb.com/api/json/v2/9973533/filter.php?i=" + queryAppend;
+        console.log(multiIngList); 
+        $.ajax({ 
+            url: multiIngList,
+            method: "GET"
+        }).then(function (respMulti) {
+            console.log(respMulti); 
+        });
+    };
+
+
+multiIng();
+   
+
+
+
+
