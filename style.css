@@ -1,0 +1,24 @@
+*{
+  font-family: 'Roboto', sans-serif;
+  /* border: pink solid 1px; */
+}
+
+/* HEADER */
+
+.nav {
+  background-image: linear-gradient(to bottom right, #28A745, #BEEE62);
+  color: #ffffff;
+  font-weight: bolder;
+}
+
+/* SEARCH COLUMN */
+
+.search-column {
+  border-right: solid #BEEE62 2px;
+}
+
+@media only screen and (max-width: 980px) {
+  .search-column {
+    border: none;
+  }
+}
