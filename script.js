@@ -101,7 +101,7 @@ $(document).ready(function() {
             var html = `
             <div class="col mb-3">
                 <div class="card h-100">
-                    <button type="button" class="past card-body text-muted list-group-item list-group-item-action d-flex justify-content-between align-items-center p-1 shadow-sm" data-ingredient="${cur}">${cur}<span class="delete-ing btn btn-danger p-1 m-1 shadow-sm">X</span></button>
+                    <button type="button" class="past card-body text-muted list-group-item list-group-item-action d-flex justify-content-between align-items-center p-1 shadow-sm">${cur}<span class="delete-ing btn btn-danger p-1 m-1 shadow-sm" data-ingredient="${cur}">X</span></button>
                 </div>
             </div>`;
 
@@ -153,6 +153,19 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '.delete-ing', function(event) {
+        var selectedIngredient = $(this).data('ingredient');
+        console.log(storage.selIng);
+
+        storage.selIng = $.grep(storage.selIng, function(value) {
+            return value != selectedIngredient;
+        });
+
+        // render the updated ingredient list
+        renderIngredientList();
+
+        // generate the new recipe list
+        multiIng();
+
 
     });
 
@@ -167,7 +180,7 @@ $(document).ready(function() {
 
 
 // Modal Open
-$(".btn").on("click", function(event) {
-    $("#myModal").css("display", "block");
-    $('<div class="modal-backdrop"></div>').appendTo(document.body)
-});
+// $(".btn").on("click", function(event) {
+//     $("#myModal").css("display", "block");
+//     $('<div class="modal-backdrop"></div>').appendTo(document.body)
+// });
