@@ -1,4 +1,9 @@
 
+    // Storage Object
+    var storage = {
+        
+    }
+    
     // Master Ingredient List: 
     var ingArray = [];
 
