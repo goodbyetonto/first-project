@@ -166,4 +166,8 @@ $(document).ready(function() {
 
 
 
-
+// Modal Open
+$(".btn").on("click", function(event) {
+    $("#myModal").css("display", "block");
+    $('<div class="modal-backdrop"></div>').appendTo(document.body)
+});

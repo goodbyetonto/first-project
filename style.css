@@ -5,10 +5,9 @@
 
 /* HEADER */
 
-.nav {
+.nav, .modal-header {
   background-image: linear-gradient(to bottom right, #28A745, #BEEE62);
   color: #ffffff;
-  font-weight: bolder;
 }
 
 /* SEARCH COLUMN */
@@ -21,4 +20,16 @@
   .search-column {
     border: none;
   }
+}
+
+/* MODAL */
+
+#modal-img {
+  max-width: 400px;
+  height: auto;
+}
+
+.modal-backdrop
+{
+    opacity:0.7 !important;
 }
