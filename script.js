@@ -1,17 +1,19 @@
 
     // Storage Object
     var storage = {
-        
+        // Master Ingredient List: 
+        ingArray = [],
+
+        // User Input Ingredient List: 
+        selIng = []
     }
     
-    // Master Ingredient List: 
-    var ingArray = [];
 
-    // User Input Ingredient List: 
-    var selIng = ['chicken', 'garlic'];
+
+
 
     // Convert selIng to string w/ comma separation
-    var queryAppend = selIng.join();
+    var queryAppend = storage.selIng.join();
 
     // Filter by Multi-Ingredient: 
     let multiIngList = "https://www.themealdb.com/api/json/v2/9973533/filter.php?i=" + queryAppend;
@@ -38,7 +40,7 @@
         }).then(function (resp) {
             for (i = 0; i < resp.meals.length; i++) {
                 var ing = resp.meals[i].strIngredient;
-                ingArray.push(ing);   
+                storage.ingArray.push(ing);   
             }
         }); 
     };
