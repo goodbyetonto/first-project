@@ -169,7 +169,7 @@ $(document).ready(function() {
     });
 
 
-
+    multiIng();
     genIngArray();
 });    
    
