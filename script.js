@@ -152,10 +152,11 @@ $(document).ready(function() {
         };
     });
 
+    // Dynamic Event Listener for delete ingredient buttons
     $(document).on('click', '.delete-ing', function(event) {
         var selectedIngredient = $(this).data('ingredient');
-        console.log(storage.selIng);
 
+        // Remove the selected ingredient from the storage array
         storage.selIng = $.grep(storage.selIng, function(value) {
             return value != selectedIngredient;
         });
@@ -165,14 +166,11 @@ $(document).ready(function() {
 
         // generate the new recipe list
         multiIng();
-
-
     });
 
 
 
     genIngArray();
-    console.log(storage.ingArray);
 });    
    
    
