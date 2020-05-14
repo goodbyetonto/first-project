@@ -106,6 +106,60 @@ $(document).ready(function() {
             </div>`;
 
             $('#past-searches').append(html);
+        })
+    };
+
+    // function to convert input into title case for API string match
+    function toTitleCase(str) {
+        return str.replace(/(?:^|\s)\w/g, function(match) {
+            return match.toUpperCase();
+        });
+    };
+
+    // Function for when the user selects random recipes
+    function randRecipe() {
+        let respLength = storage.selRecipes.length; 
+        let randNum = Math.floor(Math.random() * respLength); 
+        let randRecipe = storage.selRecipes[randNum]; 
+        let recipe = "https://www.themealdb.com/api/json/v2/9973533/lookup.php?i=" + randRecipe; 
+        return recipe;  
+}; 
+    
+    // ======================================
+    // EVENT LISTENERS
+    // ======================================
+    $('#search-btn').on('click', function(event) {
+        event.preventDefault();
+        var input = toTitleCase($('#search-bar').val());
+
+        // Check to see if the ingredient is included in the API's ingredient list
+        if (!(storage.ingArray.includes(input))) {
+            alert(`Sorry, we don't have that ingredient listed.  Try a different ingredient!`);
+            $('#search-bar').val('');
+            return false;
+        } else {
+            if ((storage.selIng.includes(input))) {
+                alert('Ingredient already included.  Pick a different ingredient!');
+                $('#search-bar').val('');
+            } else {
+                // store the ingredient in our selected ingredient array in storage
+                storage.selIng.push(input);
+                console.log(storage.selIng);
+    
+                // render the ingredients list
+                renderIngredientList();
+    
+                // get the available recipes based on the selected ingredients and render results
+                multiIng();
+
+                // clear the last input value
+                $('#search-bar').val('');
+            }
+
+        };
+    });
+
+=======
 
         })
     };
