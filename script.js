@@ -235,7 +235,14 @@ $(document).ready(function() {
 
 
 // Modal Open
-$("body").on("click", "button.btn", function(event) {
+$("body").on("click", "button.btn", function() {
     $("#myModal").css("display", "block");
-    $('<div class="modal-backdrop"></div>').appendTo(document.body)
+    $('<div class="modal-backdrop"></div>').appendTo(document.body);
 });
+
+// Modal Close
+$("body").on("click", "button.btn-danger", function() {
+    $("#myModal").css("display", "none");
+    $("div").remove(".modal-backdrop");
+});
+
