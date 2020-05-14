@@ -8,7 +8,10 @@ $(document).ready(function() {
         selIng: [],
 
         // Generated Recipes Array
-        selRecipes: []
+        selRecipes: [],
+
+        // Selected recipe's list of ingredients in modal
+        listIng: []
 
     };
 
@@ -78,7 +81,7 @@ $(document).ready(function() {
                             <div class="card-body d-flex flex-column justify-content-between">
                                 <h5 class="card-title">${cur.strMeal}</h5>
                                 <p class="text-muted"><em>TBD</em> Ingredients Selected</p>
-                                <button type="button" class="btn btn-success shadow-sm modal-button" data-recipe="${cur.strMeal}">View Recipe</button>
+                                <button type="button" class="btn btn-success shadow-sm modal-button" data-recipe="${cur.idMeal}">View Recipe</button>
                             </div>
                         </div>
                     </div>`
@@ -116,6 +119,60 @@ $(document).ready(function() {
         });
     };
 
+    function genModalDetails(mealID) {
+        // set the url with the selected meal ID
+        var mealQuery = "https://www.themealdb.com/api/json/v2/9973533/lookup.php?i=" + mealID;
+
+        // call for our mealQuery
+        $.ajax({
+            url: mealQuery,
+            method: 'GET'
+        }).then(function(resp) {
+            // select the current meal
+            var curMeal = resp.meals[0];
+            console.log(curMeal.strMealThumb);
+
+            // change the modal's title
+            $('.modal-title').text(curMeal.strMeal);
+
+            // change the modal's image
+            $('#modal-img').attr('src', curMeal.strMealThumb)
+
+            // change the modal's instructions
+            $('#modal-instructions').text(curMeal.strInstructions);
+            
+            var entries = Object.entries(curMeal);
+
+            // Append each ingredient as a list item
+            for (var i = 1; i <= 20; i++) {
+                var curIngredient = `strIngredient${i}`;    
+                var curMeasure = `strMeasure${i}`;
+                
+                for (const [key, value] of entries) {
+                    if (key === curIngredient && (value !== "" && value !== null)) {
+                        storage.listIng.push([value])
+                    };
+
+                    if (key === curMeasure && (value !== "" && value !== null)) {
+                        console.log(value);
+                        storage.listIng[i-1].push(value);
+                    };
+                };
+            };
+
+            console.log(storage.listIng);
+            
+            for (var i = 0; i < storage.listIng.length; i++) {
+                $('#modal-ingredients').append(`<li>${storage.listIng[i][0]}, ${storage.listIng[i][1]} </li>`)
+            };
+
+
+            // Display the modal
+            $("#myModal").css("display", "block");
+            $('<div class="modal-backdrop"></div>').appendTo(document.body);
+        });
+    };
+
     // Function for when the user selects random recipes
     function randRecipe() {
         let respLength = storage.selRecipes.length; 
@@ -123,13 +180,10 @@ $(document).ready(function() {
         console.log(randNum); 
         let randRecipe = storage.selRecipes[randNum].idMeal; 
 
-        // Modal function would go here
-        // genModal(mealID)
-        let recipe = "https://www.themealdb.com/api/json/v2/9973533/lookup.php?i=" + randRecipe; 
-        console.log(randRecipe);
-        console.log(recipe);
-        return recipe;  
-    }; 
+        genModalDetails(randRecipe);  
+    };
+    
+    
     
     
     // ======================================
@@ -226,6 +280,30 @@ $(document).ready(function() {
         multiIng();
     });
 
+    // Modal Open
+    $("body").on("click", "button.btn", function(event) {
+        
+        // select the data attribute for the meal ID
+        var mealID = $(this).data('recipe');
+
+        genModalDetails(mealID);
+    });
+    
+    $('#ing-instr-btn').on("click", function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        console.log('working?');
+
+        if ($('#modal-instructions-div').hasClass('hide')) {
+            $('#ing-instr-btn').text('See Ingredients')
+        } else {
+            $('#ing-instr-btn').text('See Instructions')
+        };
+
+        $('#modal-instructions-div').toggleClass('hide');
+        $('#modal-ingredients-div').toggleClass('hide');
+    });
+
 
     multiIng();
     genIngArray();
@@ -234,8 +312,3 @@ $(document).ready(function() {
 
 
 
-// Modal Open
-$("body").on("click", "button.btn", function(event) {
-    $("#myModal").css("display", "block");
-    $('<div class="modal-backdrop"></div>').appendTo(document.body)
-});
