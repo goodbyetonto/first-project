@@ -231,12 +231,11 @@ $(document).ready(function() {
     genIngArray();
 });    
    
-   
 
 
 
 // Modal Open
-$(".btn").on("click", function(event) {
+$("body").on("click", "button.btn", function(event) {
     $("#myModal").css("display", "block");
     $('<div class="modal-backdrop"></div>').appendTo(document.body)
 });
