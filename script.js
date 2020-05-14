@@ -119,11 +119,18 @@ $(document).ready(function() {
     // Function for when the user selects random recipes
     function randRecipe() {
         let respLength = storage.selRecipes.length; 
-        let randNum = Math.floor(Math.random() * respLength); 
-        let randRecipe = storage.selRecipes[randNum]; 
+        let randNum = Math.floor(Math.random() * respLength);
+        console.log(randNum); 
+        let randRecipe = storage.selRecipes[randNum].idMeal; 
+
+        // Modal function would go here
+        // genModal(mealID)
         let recipe = "https://www.themealdb.com/api/json/v2/9973533/lookup.php?i=" + randRecipe; 
+        console.log(randRecipe);
+        console.log(recipe);
         return recipe;  
-}; 
+    }; 
+    
     
     // ======================================
     // EVENT LISTENERS
@@ -154,15 +161,12 @@ $(document).ready(function() {
 
                 // clear the last input value
                 $('#search-bar').val('');
+
+                randRecipe();
             }
 
         };
     });
-
-=======
-
-        })
-    };
 
     // function to convert input into title case for API string match
     function toTitleCase(str) {
@@ -232,7 +236,7 @@ $(document).ready(function() {
 
 
 // Modal Open
-// $(".btn").on("click", function(event) {
-//     $("#myModal").css("display", "block");
-//     $('<div class="modal-backdrop"></div>').appendTo(document.body)
-// });
+$(".btn").on("click", function(event) {
+    $("#myModal").css("display", "block");
+    $('<div class="modal-backdrop"></div>').appendTo(document.body)
+});
