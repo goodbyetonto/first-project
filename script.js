@@ -159,10 +159,6 @@ $(document).ready(function() {
         };
     });
 
-=======
-
-        })
-    };
 
     // function to convert input into title case for API string match
     function toTitleCase(str) {
@@ -227,12 +223,11 @@ $(document).ready(function() {
     genIngArray();
 });    
    
-   
 
 
 
 // Modal Open
-// $(".btn").on("click", function(event) {
-//     $("#myModal").css("display", "block");
-//     $('<div class="modal-backdrop"></div>').appendTo(document.body)
-// });
+$("body").on("click", "button.btn", function(event) {
+    $("#myModal").css("display", "block");
+    $('<div class="modal-backdrop"></div>').appendTo(document.body)
+});
