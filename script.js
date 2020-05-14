@@ -312,3 +312,8 @@ $(document).ready(function() {
 
 
 
+// Modal Close
+$("body").on("click", "button.btn-danger", function() {
+    $("#myModal").css("display", "none");
+    $("div").remove(".modal-backdrop");
+});
