@@ -286,6 +286,14 @@ $(document).ready(function() {
 
         genModalDetails(mealID);
     });
+
+    // Modal Close and 'X' buttons
+    $("body").on("click", "button.btn-danger, button.close", function() {
+
+        // change css 'display' attribute to 'none' for #myModal and remove <div> with calss of .modal-backdrop
+        $("#myModal").css("display", "none");
+        $("div").remove(".modal-backdrop");
+    });
     
     $('#ing-instr-btn').on("click", function(event) {
         event.preventDefault();
@@ -306,11 +314,6 @@ $(document).ready(function() {
     multiIng();
     genIngArray();
 
-    // Modal Close
-    $("body").on("click", "button.btn-danger", function() {
-        $("#myModal").css("display", "none");
-        $("div").remove(".modal-backdrop");
-    });
 
     // I'm Feeling Hungry Button event listener
     $('#feeling-hungry-btn').on('click', function() {
