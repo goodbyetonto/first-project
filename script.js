@@ -90,7 +90,7 @@ $(document).ready(function() {
                             
                             for (const [key, value] of entries) {
                                 if (key === curIngredient && (value !== "" && value !== null)) {
-                                    curListIng.push(value);
+                                    curListIng.push(value); // check casing here !!!!!!!!!!!!!!!!!!!!!
                                 };
                             }; 
                         };
@@ -104,6 +104,10 @@ $(document).ready(function() {
                                 console.log(cur, numIng);
                             };
                         });
+
+                        var percentage = Math.round((numIng/mealIngLength) * 100);
+                        cur.ingPerc = percentage;
+
     
         
                         // render the recipes into the recipes div
@@ -121,7 +125,7 @@ $(document).ready(function() {
                         </div>`
                         } else {
                             var html = 
-                            `<div class="col mb-4">
+                            `<div class="col mb-4 meal-sort" id="${cur.ingPerc}">
                                 <div class="card h-100 shadow">
                                     <img src="${cur.strMealThumb}" class="card-img-top" alt="Photo of ${cur.strMeal}">
                                     <div class="card-body d-flex flex-column justify-content-between">
@@ -134,16 +138,11 @@ $(document).ready(function() {
     
                         }
         
-                        $('#recipes-div').append(html); // REMOVE THIS TO GET THE ORDERING CORRECTLY
-                    });
+                        $('#recipes-div').append(html);
 
+                        console.log(storage.selRecipes);    
+                    });     
                 });
-
-                // ORDER THE STORAGE.SELRECIPES ARRAY
-
-                // ADD ANOTHER FOR LOOP THAT GOES THROUGH STORAGE.SELRECIPES ARRAY AND APPENDS TO #RECIPES-DIV
-
-
             };
             
         });
