@@ -90,18 +90,16 @@ $(document).ready(function() {
                             
                             for (const [key, value] of entries) {
                                 if (key === curIngredient && (value !== "" && value !== null)) {
-                                    curListIng.push(value); // check casing here !!!!!!!!!!!!!!!!!!!!!
+                                    curListIng.push(value.toLowerCase());
                                 };
                             }; 
                         };
 
                         mealIngLength = curListIng.length;
-                        // console.log(mealIngLength);
 
                         storage.selIng.forEach(function(cur) {
-                            if (curListIng.includes(cur)) {
+                            if (curListIng.includes(cur.toLowerCase())) {
                                 numIng++;
-                                console.log(cur, numIng);
                             };
                         });
 
@@ -139,14 +137,12 @@ $(document).ready(function() {
                         }
         
                         $('#recipes-div').append(html);
-
-                        console.log(storage.selRecipes);    
+    
                     });     
                 });
             };
             
         });
-        console.log(storage.selRecipes);
     };
 
     // function to render the ingredient list buttons
@@ -326,6 +322,5 @@ $(document).ready(function() {
         randRecipe();
     });
 
-    console.log(storage);
 });    
 
