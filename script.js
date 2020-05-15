@@ -200,11 +200,11 @@ $(document).ready(function() {
                 var curMeasure = `strMeasure${i}`;
                 
                 for (const [key, value] of entries) {
-                    if (key === curIngredient && (value !== "" && value !== null)) {
+                    if (key === curIngredient && (value !== "" && value !== null && value !== " ")) {
                         storage.listIng.push([value])
                     };
 
-                    if (key === curMeasure && (value !== "" && value !== null)) {
+                    if (key === curMeasure && (value !== "" && value !== null && value !== " ")) {
                         storage.listIng[i-1].push(value);
                     };
                 };
