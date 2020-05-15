@@ -52,12 +52,10 @@ $(document).ready(function() {
     function multiIng() {
         var queryAppend = storage.selIng.join();
         let multiIngList = "https://www.themealdb.com/api/json/v2/9973533/filter.php?i=" + queryAppend;
-        console.log(multiIngList); 
         $.ajax({ 
             url: multiIngList,
             method: "GET"
         }).then(function (respMulti) {
-            console.log(respMulti);
             // check to see if there are any recipes
             if (respMulti.meals === null) {
                 $('#recipes-div').html('<p class="text-center m-3"><em>Sorry, we do not have any recipes that match your ingredients!</em></p>');
@@ -72,28 +70,84 @@ $(document).ready(function() {
                     
                     // store each meal into the storage object
                     storage.selRecipes.push(cur);
+
+                    // Logic for getting number of ingredients
+                    var mealID = cur.idMeal;
+                    var curListIng = [];
+                    var mealIngLength;
+                    var numIng = 0;
+
+                    $.ajax({
+                        url:'https://www.themealdb.com/api/json/v2/9973533/lookup.php?i=' + mealID,
+                        method: 'GET'
+                    }).then(function(mealResp) {
+                        
+                        var curMeal = mealResp.meals[0];
+                        var entries = Object.entries(curMeal);
+
+                        for (var i = 1; i <= 20; i++) {
+                            var curIngredient = `strIngredient${i}`;    
+                            
+                            for (const [key, value] of entries) {
+                                if (key === curIngredient && (value !== "" && value !== null)) {
+                                    curListIng.push(value);
+                                };
+                            }; 
+                        };
+
+                        mealIngLength = curListIng.length;
+                        // console.log(mealIngLength);
+
+                        storage.selIng.forEach(function(cur) {
+                            if (curListIng.includes(cur)) {
+                                numIng++;
+                                console.log(cur, numIng);
+                            };
+                        });
     
-                    // render the recipes into the recipes div
-                    var html = 
-                    `<div class="col mb-4">
-                        <div class="card h-100 shadow">
-                            <img src="${cur.strMealThumb}" class="card-img-top" alt="Photo of ${cur.strMeal}">
-                            <div class="card-body d-flex flex-column justify-content-between">
-                                <h5 class="card-title">${cur.strMeal}</h5>
-                                <p class="text-muted"><em>TBD</em> Ingredients Selected</p>
-                                <button type="button" class="btn btn-success shadow-sm modal-button" data-recipe="${cur.idMeal}">View Recipe</button>
+        
+                        // render the recipes into the recipes div
+                        if (storage.selIng.length === 0) {
+                            var html = 
+                        `<div class="col mb-4">
+                            <div class="card h-100 shadow">
+                                <img src="${cur.strMealThumb}" class="card-img-top" alt="Photo of ${cur.strMeal}">
+                                <div class="card-body d-flex flex-column justify-content-between">
+                                    <h5 class="card-title">${cur.strMeal}</h5>
+                                    &nbsp;
+                                    <button type="button" class="btn btn-success shadow-sm modal-button" data-recipe="${cur.idMeal}">View Recipe</button>
+                                </div>
                             </div>
-                        </div>
-                    </div>`
+                        </div>`
+                        } else {
+                            var html = 
+                            `<div class="col mb-4">
+                                <div class="card h-100 shadow">
+                                    <img src="${cur.strMealThumb}" class="card-img-top" alt="Photo of ${cur.strMeal}">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <h5 class="card-title">${cur.strMeal}</h5>
+                                        <p class="text-muted">${numIng}/${mealIngLength} Ingredients Selected</p>
+                                        <button type="button" class="btn btn-success shadow-sm modal-button" data-recipe="${cur.idMeal}">View Recipe</button>
+                                    </div>
+                                </div>
+                            </div>`
     
-                    $('#recipes-div').append(html);
+                        }
+        
+                        $('#recipes-div').append(html); // REMOVE THIS TO GET THE ORDERING CORRECTLY
+                    });
+
                 });
-    
-                console.log(storage.selRecipes);
+
+                // ORDER THE STORAGE.SELRECIPES ARRAY
+
+                // ADD ANOTHER FOR LOOP THAT GOES THROUGH STORAGE.SELRECIPES ARRAY AND APPENDS TO #RECIPES-DIV
+
 
             };
             
         });
+        console.log(storage.selRecipes);
     };
 
     // function to render the ingredient list buttons
@@ -123,6 +177,9 @@ $(document).ready(function() {
         // set the url with the selected meal ID
         var mealQuery = "https://www.themealdb.com/api/json/v2/9973533/lookup.php?i=" + mealID;
 
+        $('#modal-ingredients').empty();
+        storage.listIng = [];
+
         // call for our mealQuery
         $.ajax({
             url: mealQuery,
@@ -130,7 +187,6 @@ $(document).ready(function() {
         }).then(function(resp) {
             // select the current meal
             var curMeal = resp.meals[0];
-            console.log(curMeal.strMealThumb);
 
             // change the modal's title
             $('.modal-title').text(curMeal.strMeal);
@@ -154,13 +210,11 @@ $(document).ready(function() {
                     };
 
                     if (key === curMeasure && (value !== "" && value !== null)) {
-                        console.log(value);
                         storage.listIng[i-1].push(value);
                     };
                 };
             };
 
-            console.log(storage.listIng);
             
             for (var i = 0; i < storage.listIng.length; i++) {
                 $('#modal-ingredients').append(`<li>${storage.listIng[i][0]}, ${storage.listIng[i][1]} </li>`)
@@ -177,55 +231,10 @@ $(document).ready(function() {
     function randRecipe() {
         let respLength = storage.selRecipes.length; 
         let randNum = Math.floor(Math.random() * respLength);
-        console.log(randNum);
         let mealID = storage.selRecipes[randNum].idMeal; 
 
         genModalDetails(mealID);  
     };
-    
-    
-    
-    
-    // ======================================
-    // EVENT LISTENERS
-    // ======================================
-    $('#search-btn').on('click', function(event) {
-        event.preventDefault();
-        var input = toTitleCase($('#search-bar').val());
-
-        // Check to see if the ingredient is included in the API's ingredient list
-        if (!(storage.ingArray.includes(input))) {
-            alert(`Sorry, we don't have that ingredient listed.  Try a different ingredient!`);
-            $('#search-bar').val('');
-            return false;
-        } else {
-            if ((storage.selIng.includes(input))) {
-                alert('Ingredient already included.  Pick a different ingredient!');
-                $('#search-bar').val('');
-            } else {
-                // store the ingredient in our selected ingredient array in storage
-                storage.selIng.push(input);
-                console.log(storage.selIng);
-    
-                // render the ingredients list
-                renderIngredientList();
-    
-                // get the available recipes based on the selected ingredients and render results
-                multiIng();
-
-                // clear the last input value
-                $('#search-bar').val('');
-            }
-
-        };
-    });
-
-    // function to convert input into title case for API string match
-    function toTitleCase(str) {
-        return str.replace(/(?:^|\s)\w/g, function(match) {
-            return match.toUpperCase();
-        });
-    }
 
     
     // ======================================
@@ -247,7 +256,6 @@ $(document).ready(function() {
             } else {
                 // store the ingredient in our selected ingredient array in storage
                 storage.selIng.push(input);
-                console.log(storage.selIng);
     
                 // render the ingredients list
                 renderIngredientList();
@@ -290,7 +298,6 @@ $(document).ready(function() {
     $('#ing-instr-btn').on("click", function(event) {
         event.preventDefault();
         event.stopPropagation();
-        console.log('working?');
 
         if ($('#modal-instructions-div').hasClass('hide')) {
             $('#ing-instr-btn').text('See Ingredients')
@@ -314,8 +321,9 @@ $(document).ready(function() {
 
     // I'm Feeling Hungry Button event listener
     $('#feeling-hungry-btn').on('click', function() {
-        console.log('random button clicked');
         randRecipe();
     });
+
+    console.log(storage);
 });    
 
