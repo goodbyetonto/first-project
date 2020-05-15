@@ -177,10 +177,10 @@ $(document).ready(function() {
     function randRecipe() {
         let respLength = storage.selRecipes.length; 
         let randNum = Math.floor(Math.random() * respLength);
-        console.log(randNum); 
-        let randRecipe = storage.selRecipes[randNum].idMeal; 
+        console.log(randNum);
+        let mealID = storage.selRecipes[randNum].idMeal; 
 
-        genModalDetails(randRecipe);  
+        genModalDetails(mealID);  
     };
     
     
@@ -215,8 +215,6 @@ $(document).ready(function() {
 
                 // clear the last input value
                 $('#search-bar').val('');
-
-                randRecipe();
             }
 
         };
@@ -307,13 +305,17 @@ $(document).ready(function() {
 
     multiIng();
     genIngArray();
+
+    // Modal Close
+    $("body").on("click", "button.btn-danger", function() {
+        $("#myModal").css("display", "none");
+        $("div").remove(".modal-backdrop");
+    });
+
+    // I'm Feeling Hungry Button event listener
+    $('#feeling-hungry-btn').on('click', function() {
+        console.log('random button clicked');
+        randRecipe();
+    });
 });    
-   
 
-
-
-// Modal Close
-$("body").on("click", "button.btn-danger", function() {
-    $("#myModal").css("display", "none");
-    $("div").remove(".modal-backdrop");
-});
