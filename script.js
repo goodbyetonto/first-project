@@ -48,7 +48,7 @@ $(document).ready(function() {
         }); 
     };
 
-    // Function for when user selects multiple ingredients
+    // Function for when user selects one or multiple ingredients
     function multiIng() {
         var queryAppend = storage.selIng.join();
         let multiIngList = "https://www.themealdb.com/api/json/v2/9973533/filter.php?i=" + queryAppend;
@@ -108,6 +108,8 @@ $(document).ready(function() {
                         var percentage = Math.round((numIng/mealIngLength) * 100);
                         cur.ingPerc = percentage;
 
+                        
+
     
         
                         // render the recipes into the recipes div
@@ -125,8 +127,8 @@ $(document).ready(function() {
                         </div>`
                         } else {
                             var html = 
-                            `<div class="col mb-4 meal-sort" id="${cur.ingPerc}">
-                                <div class="card h-100 shadow">
+                            `<div class="col mb-4">
+                                <div class="card h-100 shadow meal-sort" data-percentage="${cur.ingPerc}">
                                     <img src="${cur.strMealThumb}" class="card-img-top" alt="Photo of ${cur.strMeal}">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <h5 class="card-title">${cur.strMeal}</h5>
@@ -137,17 +139,29 @@ $(document).ready(function() {
                             </div>`
     
                         }
-        
                         $('#recipes-div').append(html);
+        
+                        
+                        
+
 
                         console.log(storage.selRecipes);    
-                    });     
+                    });  
                 });
             };
-            
         });
-        console.log(storage.selRecipes);
+        
+        
+
+
     };
+    console.log(storage.selRecipes);
+        var wrapper = $(".col"); 
+        wrapper.find(".meal-sort").sort(function (a, b) {
+            return +a.dataset.percentage - +b.dataset.percentage; 
+        })
+        .appendTo(wrapper);    
+        
 
     // function to render the ingredient list buttons
     function renderIngredientList() {
