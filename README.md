@@ -1,12 +1,11 @@
 # seeFood
----
+
 
 ## App Preview 
 
 
 ![seeFood Preview](./Assets/preview.gif)
 
----
 
 ## About App
 
@@ -18,13 +17,13 @@ Simply enter the ingredients you already have in your kitchen, and seeFood will 
 
 This project has been completed with no known bugs and can be viewed [here](https://goodbyetonto.github.io/first-project/). The project is responsive and can be viewed on mobile, tablet or desktop.
 
---- 
+
 
 ## Technologies Used 
 
 This application features dynamically updated HTML and CSS through jQuery/JavaScript using the [The Meal DB API](https://www.themealdb.com/) to retrieve recipe data.
 
----
+
 
 ## User Story
 
