@@ -22,6 +22,18 @@ $(document).ready(function() {
         listIng: []
 
     };
+    function getLocalTime() {
+        const mealTime = $("#meal-time"); 
+        let currentTime = parseInt(moment().format('HH'));
+        console.log(currentTime); 
+        if (currentTime < 12) {
+            mealTime.html(" Breakfast "); 
+        } else if (currentTime >= 12 && currentTime <= 16) {
+            mealTime.html(" Lunch "); 
+        } else {
+            mealTime.html(" Dinner ");
+        }
+    }; 
 
     // Convert selIng to string w/ comma separation
 
@@ -148,8 +160,7 @@ $(document).ready(function() {
                         $('#recipes-div').append(html);
                         console.log(storage.selRecipes);    
                     });  
-    
-                    });     
+        
                 });
             };
         });
@@ -315,8 +326,6 @@ $(document).ready(function() {
         $("div").remove(".modal-backdrop");
     });
 
-      
-
     // onLoad Modal Close and 'X' buttons
     $("body").on("click", "button.onload-close, button.close", function() {
 
@@ -339,7 +348,7 @@ $(document).ready(function() {
         $('#modal-ingredients-div').toggleClass('hide');
     });
 
-
+    getLocalTime(); 
     multiIng();
     genIngArray();
 
