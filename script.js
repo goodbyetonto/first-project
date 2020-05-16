@@ -22,6 +22,8 @@ $(document).ready(function() {
         listIng: []
 
     };
+    
+    // Get local time to determine what meal will be displayed in opening Modal
     function getLocalTime() {
         const mealTime = $("#meal-time"); 
         let currentTime = parseInt(moment().format('HH'));
@@ -29,19 +31,6 @@ $(document).ready(function() {
         if (currentTime < 12) {
             mealTime.html(" Breakfast "); 
         } else if (currentTime >= 12 && currentTime <= 16) {
-            mealTime.html(" Lunch "); 
-        } else {
-            mealTime.html(" Dinner ");
-        }
-    }; 
-
-    // Get local hour and convert to integer
-    function getLocalTime() {
-        const mealTime = $("#meal-time"); 
-        let currentTime = parseInt(moment().format('HH'));
-        if (currentTime < 12) {
-            mealTime.html(" Breakfast "); 
-        } else if (currentTime >= 12 && currentTime <= 4) {
             mealTime.html(" Lunch "); 
         } else {
             mealTime.html(" Dinner ");
