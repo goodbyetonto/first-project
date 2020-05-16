@@ -35,6 +35,20 @@ $(document).ready(function() {
         }
     }; 
 
+    // Get local hour and convert to integer
+    function getLocalTime() {
+        const mealTime = $("#meal-time"); 
+        let currentTime = parseInt(moment().format('HH'));
+        if (currentTime < 12) {
+            mealTime.html(" Breakfast "); 
+        } else if (currentTime >= 12 && currentTime <= 4) {
+            mealTime.html(" Lunch "); 
+        } else {
+            mealTime.html(" Dinner ");
+        }
+    }; 
+    
+
     // Convert selIng to string w/ comma separation
 
     // Filter by Multi-Ingredient: 
@@ -159,18 +173,23 @@ $(document).ready(function() {
                         }
                         $('#recipes-div').append(html);
                         console.log(storage.selRecipes);    
+<<<<<<< HEAD
                     });  
         
+=======
+                    });       
+>>>>>>> 2b53c67be03c3ecbaa0d62ae4a16c2f7c6654f2b
                 });
             };
         });
     };
+
     console.log(storage.selRecipes);
-        var wrapper = $(".col"); 
-        wrapper.find(".meal-sort").sort(function (a, b) {
-            return +a.dataset.percentage - +b.dataset.percentage; 
-        })
-        .appendTo(wrapper);    
+        // var wrapper = $(".col"); 
+        // wrapper.find(".meal-sort").sort(function (a, b) {
+        //     return +a.dataset.percentage - +b.dataset.percentage; 
+        // })
+        // .appendTo(wrapper);    
         
 
     // function to render the ingredient list buttons
@@ -252,6 +271,7 @@ $(document).ready(function() {
 
     // Function for when the user selects random recipes
     function randRecipe() {
+        console.log(currentTime); 
         let respLength = storage.selRecipes.length; 
         let randNum = Math.floor(Math.random() * respLength);
         let mealID = storage.selRecipes[randNum].idMeal; 
