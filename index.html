@@ -125,15 +125,12 @@
     <div class="modal-dialog shadow-xl modal-dialog-scrollable modal-lg container" role="document">
       <div class="modal-content">
         <div class="modal-header shadow-sm">
-          <h3 class="modal-title">Recipe title</h3>
+          <h3 id="modal-title" class="modal-title">Recipe title</h3>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body text-center">
-          <div>
-            <p class="small text-left">Could be Ready By: <span id="modal-time"></span></p>
-          </div>
           <img src="https://www.themealdb.com/images/media/meals/sypxpx1515365095.jpg" class="img-fluid w-100 shadow-sm" id="modal-img" alt="...">
           <hr>
           <div id="modal-instructions-div" class="text-left">
@@ -154,6 +151,27 @@
       </div>
     </div>
   </div>
+
+    <!-- Onload Modal -->
+    <div id="onLoadModal" class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog shadow-xl modal-dialog-scrollable modal-lg container" role="document">
+        <div class="modal-content text-center">
+          <div class="modal-header text-center shadow-sm">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body text-center">
+            <h3 class="modal-title">Welcome to seeFood!</h3>
+            &nbsp;
+            <h4>Interested in some ideas for <span id="meal-time"></span>?</h4>
+            <p>Click "Get Started" and enter the ingredients you have in your fridge or pantry to pull up some creative recipes, or click "I'm Feeling Hungry" to pull up a random recipe and start cooking!</p>
+          <div class="modal-footer justify-content-center">
+              <button type="button" class="btn btn-success onload-close" data-dismiss="modal">Get Started!</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
   <!-- js tag -->

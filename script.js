@@ -1,3 +1,11 @@
+// onLoad Modal Open
+$(window).on('load',function(event) {
+    console.log('loaded');
+    // Display the modal
+    $("#onLoadModal").css("display", "block");
+    $('<div class="modal-backdrop"></div>').appendTo(document.body);
+});
+
 $(document).ready(function() {
     // Storage Object
     var storage = {
@@ -193,7 +201,7 @@ $(document).ready(function() {
             var curMeal = resp.meals[0];
 
             // change the modal's title
-            $('.modal-title').text(curMeal.strMeal);
+            $('#modal-title').text(curMeal.strMeal);
 
             // change the modal's image
             $('#modal-img').attr('src', curMeal.strMealThumb)
@@ -306,6 +314,16 @@ $(document).ready(function() {
         $("#myModal").css("display", "none");
         $("div").remove(".modal-backdrop");
     });
+
+      
+
+    // onLoad Modal Close and 'X' buttons
+    $("body").on("click", "button.onload-close, button.close", function() {
+
+        // change css 'display' attribute to 'none' for #myModal and remove <div> with calss of .modal-backdrop
+        $("#onLoadModal").css("display", "none");
+        $("div").remove(".modal-backdrop");
+    });
     
     $('#ing-instr-btn').on("click", function(event) {
         event.preventDefault();
@@ -332,4 +350,7 @@ $(document).ready(function() {
     });
 
 });    
+
+
+
 
