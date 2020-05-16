@@ -138,11 +138,6 @@ $(document).ready(function() {
     
                         }
                         $('#recipes-div').append(html);
-        
-                        
-                        
-
-
                         console.log(storage.selRecipes);    
                     });  
     
@@ -150,10 +145,6 @@ $(document).ready(function() {
                 });
             };
         });
-        
-        
-
-
     };
     console.log(storage.selRecipes);
         var wrapper = $(".col"); 
