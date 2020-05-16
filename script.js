@@ -161,13 +161,8 @@ $(document).ready(function() {
     
                         }
                         $('#recipes-div').append(html);
-                        console.log(storage.selRecipes);    
-<<<<<<< HEAD
-                    });  
-        
-=======
+                        console.log(storage.selRecipes);           
                     });       
->>>>>>> 2b53c67be03c3ecbaa0d62ae4a16c2f7c6654f2b
                 });
             };
         });
