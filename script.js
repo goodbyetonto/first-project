@@ -90,18 +90,16 @@ $(document).ready(function() {
                             
                             for (const [key, value] of entries) {
                                 if (key === curIngredient && (value !== "" && value !== null)) {
-                                    curListIng.push(value); // check casing here !!!!!!!!!!!!!!!!!!!!!
+                                    curListIng.push(value.toLowerCase());
                                 };
                             }; 
                         };
 
                         mealIngLength = curListIng.length;
-                        // console.log(mealIngLength);
 
                         storage.selIng.forEach(function(cur) {
-                            if (curListIng.includes(cur)) {
+                            if (curListIng.includes(cur.toLowerCase())) {
                                 numIng++;
-                                console.log(cur, numIng);
                             };
                         });
 
@@ -147,6 +145,8 @@ $(document).ready(function() {
 
                         console.log(storage.selRecipes);    
                     });  
+    
+                    });     
                 });
             };
         });
@@ -218,11 +218,11 @@ $(document).ready(function() {
                 var curMeasure = `strMeasure${i}`;
                 
                 for (const [key, value] of entries) {
-                    if (key === curIngredient && (value !== "" && value !== null)) {
+                    if (key === curIngredient && (value !== "" && value !== null && value !== " ")) {
                         storage.listIng.push([value])
                     };
 
-                    if (key === curMeasure && (value !== "" && value !== null)) {
+                    if (key === curMeasure && (value !== "" && value !== null && value !== " ")) {
                         storage.listIng[i-1].push(value);
                     };
                 };
@@ -340,6 +340,5 @@ $(document).ready(function() {
         randRecipe();
     });
 
-    console.log(storage);
 });    
 
